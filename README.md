@@ -1,2 +1,2 @@
 # overlord.js
-Administration user and access, developing in node.js and sequelize
+Administrator for Users, modules and access
