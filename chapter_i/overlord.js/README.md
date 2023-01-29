@@ -93,6 +93,17 @@ The Sequelize CLI
 ```
 pnpm add -g sequelize-cli
 ```
+## sequelize init
+Get into src folder and run 
+```
+sequelize init
+```
+## standard
+JavaScript Style Guide, with linter & automatic code fixer.
+```
+pnpm add -g standard
+```
+
 
 ## Install all dependencies of the project
 ```
