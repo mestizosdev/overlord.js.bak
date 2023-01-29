@@ -62,5 +62,8 @@ create user overlord_js with encrypted password 'o';
 ```
 grant all privileges on database overlord_js to overlord_js;
 ```
-
+## Install all dependencies of the project
+```
+pnpm i
+```
 
