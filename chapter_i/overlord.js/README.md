@@ -78,6 +78,21 @@ sudo systemctl restart postgresql
 ```
 psql -d overlord_js -U overlord_js -W
 ```
+## Sequelize
+Feature-rich ORM for modern Node.js and TypeScript.
+```
+pnpm add sequelize
+```
+## pg and pg-hstore
+PostgreSQL client for node.js and a node package for serializing and deserializing JSON data to hstore format.
+```
+pnpm add pg pg-hstore
+```
+## sequelize-cli
+The Sequelize CLI 
+```
+pnpm add -g sequelize-cli
+```
 
 ## Install all dependencies of the project
 ```
