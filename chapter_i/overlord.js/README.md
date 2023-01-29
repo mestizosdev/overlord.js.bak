@@ -62,6 +62,23 @@ create user overlord_js with encrypted password 'o';
 ```
 grant all privileges on database overlord_js to overlord_js;
 ```
+## Show path of the pg_hba.conf file
+```
+show hba_file;
+```
+## Add the next line in pg_hba.conf file
+```
+local   all             overlord_js                             trust
+```
+## Restart postgresql service
+```
+sudo systemctl restart postgresql
+```
+## Access to overlord_js database with overlord_js user from psql 
+```
+psql -d overlord_js -U overlord_js -W
+```
+
 ## Install all dependencies of the project
 ```
 pnpm i
