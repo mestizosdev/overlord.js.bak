@@ -24,8 +24,9 @@ app.get('/overlord/rest/v1/version', async (req, res) => {
     .query('SELECT version() as version_database', {
       type: QueryTypes.SELECT
     })
+
   const version = {
-    versionDatabase: result[0].version_database.substring(0, 15),
+    versionDatabase: result[0].version_database,
     versionNode: process.version
   }
 

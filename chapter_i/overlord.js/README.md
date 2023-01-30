@@ -7,6 +7,7 @@ Administrator for Users, modules and access
 
 ## PnpM
 Fast, disk space efficient package manager
+https://pnpm.io/
 ```
 curl -fsSL https://get.pnpm.io/install.sh | sh -
 ```
@@ -39,6 +40,7 @@ pnpm add -D morgan
 pnpm start
 ```
 ## Test with httpie
+A simple yet powerful command-line HTTP and API testing client for the API era.
 https://httpie.io/
 ```
 http localhost:5000
