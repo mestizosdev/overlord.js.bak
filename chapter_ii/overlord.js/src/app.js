@@ -8,11 +8,11 @@ dotenv.config({ path: path.join(__dirname, '/config/config.env') })
 
 const app = express()
 
-app.use(version)
-
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
+
+app.use(version)
 
 app.get('/', (req, res) => {
   res.status(200).json({
