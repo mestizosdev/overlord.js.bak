@@ -6,7 +6,7 @@ Administrator for Users, modules and access
 mkdir src/controllers
 ```
 ```
-touch src/routes/version.js
+touch src/controllers/version.js
 ```
 ## Create folder routes and create file
 ```
@@ -14,4 +14,34 @@ mkdir src/routes
 ```
 ```
 touch src/routes/version.js
+```
+## Create model user
+```
+cd src
+```
+```
+sequelize model:generate --name User --attributes \
+username:string,\
+password:string,\
+email:string,\
+status:boolean \
+--underscored
+```
+## Migrate
+```
+sequelize db:migrate
+```
+```
+sequelize db:migrate:undo
+```
+## Create seeder
+```
+sequelize migration:create --name users
+```
+## Seed
+```
+sequelize db:seed:all
+```
+```
+sequelize db:seed:undo:all
 ```
