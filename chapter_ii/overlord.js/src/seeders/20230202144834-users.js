@@ -4,7 +4,7 @@
 const password = 'HastaLaVista88'
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('users', [{
+    await queryInterface.bulkInsert('adm_users', [{
       username: 'system',
       password,
       email: 'friend@mestizos.dev',
@@ -15,6 +15,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('users', null, {})
+    await queryInterface.bulkDelete('adm_users', null, {})
   }
 }
