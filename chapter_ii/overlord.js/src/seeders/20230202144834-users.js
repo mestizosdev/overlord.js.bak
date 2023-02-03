@@ -1,4 +1,5 @@
 'use strict'
+const passwordUtil = require('../utils/password')
 
 /** @type {import('sequelize-cli').Migration} */
 const password = 'HastaLaVista88'
@@ -6,7 +7,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('adm_users', [{
       username: 'system',
-      password,
+      password: await passwordUtil.encrypt(password),
       email: 'friend@mestizos.dev',
       status: true,
       created_at: new Date(),

@@ -5,15 +5,15 @@ Administrator for Users, modules and access
 * Node 18
 * PostgreSQL 14 or above
 
+## Create project
+```
+npm init
+```
 ## PnpM
 Fast, disk space efficient package manager
 https://pnpm.io/
 ```
 curl -fsSL https://get.pnpm.io/install.sh | sh -
-```
-## Create project
-```
-npm init
 ```
 ## Express
 Fast, unopinionated, minimalist web framework for Node.js.
@@ -94,6 +94,16 @@ pnpm add pg pg-hstore
 The Sequelize CLI 
 ```
 pnpm add -g sequelize-cli
+```
+## Create configuration file
+This is a special configuration file. It lets you specify the following options that you would usually pass as arguments to CLI:
+* env: The environment to run the command in
+* config: The path to the config file
+* migrations-path: The path to the migrations folder
+* seeders-path: The path to the seeders folder
+* models-path: The path to the models folder
+```
+touch .sequelizerc
 ```
 ## sequelize init
 Get into src folder and run 

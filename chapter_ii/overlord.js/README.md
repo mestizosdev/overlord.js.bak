@@ -17,9 +17,6 @@ touch src/routes/version.js
 ```
 ## Create model user
 ```
-cd src
-```
-```
 sequelize model:generate --name User --attributes \
 username:string,\
 password:string,\
@@ -45,3 +42,17 @@ sequelize db:seed:all
 ```
 sequelize db:seed:undo:all
 ```
+## Create folder utils
+```
+mkdir src/utils
+```
+## Create file password.js
+```
+touch src/utils/password.js
+```
+## bcrypt
+A library to help you hash passwords.
+```
+pnpm add bcrypt
+```
+
