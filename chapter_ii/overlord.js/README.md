@@ -55,4 +55,7 @@ A library to help you hash passwords.
 ```
 pnpm add bcrypt
 ```
-
+mkdir src/services
+touch src/services/user.js
+touch src/controllers/user.js
+touch src/routes/user.js

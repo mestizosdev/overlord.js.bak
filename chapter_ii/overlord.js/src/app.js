@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 const morgan = require('morgan')
 const path = require('path')
 const version = require('./routes/version')
+const user = require('./routes/user')
 
 dotenv.config({ path: path.join(__dirname, '/config/config.env') })
 
@@ -13,6 +14,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(version)
+app.use(user)
 
 app.get('/', (req, res) => {
   res.status(200).json({
