@@ -55,7 +55,22 @@ A library to help you hash passwords.
 ```
 pnpm add bcrypt
 ```
+## Create services folder and service user file
+```
 mkdir src/services
+```
+```
 touch src/services/user.js
+```
+## Create controller and route user file
+```
 touch src/controllers/user.js
+```
+```
 touch src/routes/user.js
+```
+## generate-password 
+NodeJS library for generating cryptographically-secure passwords.
+```
+pnpm add generate-password
+```
