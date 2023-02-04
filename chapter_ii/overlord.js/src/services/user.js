@@ -22,6 +22,8 @@ exports.getUserByUsername = async (username) => {
 }
 
 exports.createUser = async (username, email, password) => {
+  /*
+  // Classic mode
   let passwordToSave
 
   if (!password) {
@@ -30,6 +32,16 @@ exports.createUser = async (username, email, password) => {
   } else {
     passwordToSave = password
   }
+  */
+
+  // Conditional operator or ternary operator
+  // condition ? exprIfTrue : exprIfFalse
+  const passwordToSave = (typeof password !== 'undefined' &&
+    password !== null)
+    ? password
+    : passwordUtil.generate()
+
+  console.log(`passwordToSave: ${passwordToSave}`)
 
   const userNew = db.User.build({
     username,
