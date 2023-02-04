@@ -12,7 +12,7 @@ exports.getUser = async (req, res) => {
   return res.status(200).json({
     id: user.id,
     username: user.username,
-    email: user.observation,
+    email: user.email,
     createdAt: user.createdAt,
     status: user.status
   })

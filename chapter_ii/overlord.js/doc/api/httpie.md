@@ -1,8 +1,8 @@
-## GET index
-```
-http localhost:5000
-```
 ## GET version
 ```
-http localhost:5000/overlord/rest/v1/version
+http localhost:5000/overlord/v1/version
+```
+## GET user by id
+```
+http localhost:5000/overlord/v1/user/1
 ```

@@ -2,8 +2,8 @@ const express = require('express')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
 const path = require('path')
-const version = require('./routes/version')
-const user = require('./routes/user')
+
+const routes = require('./routes')
 
 dotenv.config({ path: path.join(__dirname, '/config/config.env') })
 
@@ -13,14 +13,8 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
 
-app.use(version)
-app.use(user)
-
-app.get('/', (req, res) => {
-  res.status(200).json({
-    application: { name: 'overlord.js' }
-  })
-})
+app.use(routes.version)
+app.use(routes.user)
 
 const PORT = process.env.PORT || 5000
 
