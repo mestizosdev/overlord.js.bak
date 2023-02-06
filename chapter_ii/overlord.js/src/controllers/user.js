@@ -40,3 +40,28 @@ exports.createUser = async (req, res) => {
     status: user.status
   })
 }
+
+exports.updateUser = async (req, res) => {
+  const user = await userService.getUser(req.params.id)
+
+  if (!user) {
+    return res.status(404).json({
+      message: 'User don\'t exist'
+    })
+  }
+
+  const { username, email, password, status } = req.body
+
+  const userUpdated = await userService.updateUser(
+    user,
+    { username, email, password, status }
+  )
+
+  return res.status(200).json({
+    id: userUpdated.id,
+    username: userUpdated.username,
+    email: userUpdated.email,
+    createdAt: userUpdated.createdAt,
+    status: userUpdated.status
+  })
+}

@@ -54,3 +54,15 @@ exports.createUser = async (username, email, password) => {
 
   return userNew
 }
+
+exports.updateUser = async (userToUpdate, userWithNewData) => {
+  console.log(`userToUpdate: ${userToUpdate}`)
+  console.log(`userWithNewData: ${userWithNewData}`)
+
+  return await userToUpdate.update({
+    username: userWithNewData.username,
+    email: userWithNewData.email,
+    password: userWithNewData.password,
+    status: userWithNewData.status
+  })
+}
