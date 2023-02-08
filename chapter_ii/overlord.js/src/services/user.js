@@ -66,3 +66,7 @@ exports.updateUser = async (userToUpdate, userWithNewData) => {
     status: userWithNewData.status
   })
 }
+
+exports.deleteUser = async (userToDelete) => {
+  await userToDelete.destroy()
+}

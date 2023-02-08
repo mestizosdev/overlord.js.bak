@@ -65,3 +65,20 @@ exports.updateUser = async (req, res) => {
     status: userUpdated.status
   })
 }
+
+exports.deleteUser = async (req, res) => {
+  const user = await userService.getUser(req.params.id)
+
+  if (!user) {
+    return res.status(404).json({
+      message: 'User don\'t exist'
+    })
+  }
+
+  await userService.deleteUser(user)
+
+  return res.status(200).json({
+    id: user.id,
+    description: user.username
+  })
+}
