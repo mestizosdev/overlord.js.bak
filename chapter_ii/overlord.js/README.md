@@ -1,5 +1,5 @@
 # Overlord.js
-Administrator for Users, modules and access
+Create controllers, routes, services and generate model with sequelize. 
 
 ## Create folder controllers and create file
 ```

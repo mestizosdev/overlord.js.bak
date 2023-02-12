@@ -1,9 +1,5 @@
 # Overlord.js
-Administrator for Users, modules and access
-
-## Software
-* Node 18
-* PostgreSQL 14 or above
+Create project, install basic dependencies and connect with postgresql.
 
 ## Create project
 ```
