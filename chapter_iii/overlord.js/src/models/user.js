@@ -1,8 +1,17 @@
+/** @module models/user */
 'use strict'
 const {
   Model
 } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
+  /**
+   * @class
+   * @property {id} number
+   * @property {username} string
+   * @property {password} string
+   * @property {email} string
+   * @property {status} boolean
+ */
   class User extends Model {
     /**
      * Helper method for defining associations.

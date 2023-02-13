@@ -5,6 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon src/app.js",
+    "doc": "jsdoc -c jsdoc.json",
+    "standard": "standard src --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jorge Luis",
@@ -19,6 +21,8 @@
     "sequelize": "^6.28.0"
   },
   "devDependencies": {
+    "jsdoc": "^4.0.0",
+    "jsdoc-http-plugin": "^0.3.2",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.20"
   }
