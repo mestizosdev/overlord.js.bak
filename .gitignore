@@ -104,4 +104,4 @@ dist
 .tern-port
 
 # Generate doc
-.chapter_iii/overlord.js/doc/overlord.js
+chapter_iii/overlord.js/doc/overlord.js/

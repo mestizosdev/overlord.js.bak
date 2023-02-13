@@ -1,5 +1,5 @@
 # Overlord.js
-Create documentation
+Create documentation with JSDoc
 
 ## JSDoc
 An API documentation generator for JavaScript. 
