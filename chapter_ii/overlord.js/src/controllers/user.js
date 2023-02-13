@@ -1,4 +1,5 @@
 const userService = require('../services/user')
+const passwordUtil = require('../utils/password')
 
 exports.getUser = async (req, res) => {
   const user = await userService.getUser(req.params.id)
@@ -30,7 +31,16 @@ exports.createUser = async (req, res) => {
     })
   }
 
-  const user = await userService.createUser(username, email, password)
+  // Conditional operator or ternary operator
+  // condition ? exprIfTrue : exprIfFalse
+  const passwordToSave = (typeof password !== 'undefined' &&
+    password !== null)
+    ? password
+    : passwordUtil.generate()
+
+  console.log(`passwordToSave: ${passwordToSave}`)
+
+  const user = await userService.createUser({ username, email, password: passwordToSave })
 
   return res.status(200).json({
     id: user.id,

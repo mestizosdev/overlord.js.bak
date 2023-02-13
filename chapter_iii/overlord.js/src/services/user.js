@@ -21,38 +21,15 @@ exports.getUserByUsername = async (username) => {
   }
 }
 
-exports.createUser = async (username, email, password) => {
-  /*
-  // Classic mode
-  let passwordToSave
-
-  if (!password) {
-    passwordToSave = passwordUtil.generate()
-    console.log(passwordToSave)
-  } else {
-    passwordToSave = password
-  }
-  */
-
-  // Conditional operator or ternary operator
-  // condition ? exprIfTrue : exprIfFalse
-  const passwordToSave = (typeof password !== 'undefined' &&
-    password !== null)
-    ? password
-    : passwordUtil.generate()
-
-  console.log(`passwordToSave: ${passwordToSave}`)
-
-  const userNew = db.User.build({
-    username,
-    email: email.toLowerCase(),
-    password: await passwordUtil.encrypt(passwordToSave),
+exports.createUser = async (userNew) => {
+  const user = db.User.build({
+    username: userNew.username,
+    email: userNew.email.toLowerCase(),
+    password: await passwordUtil.encrypt(userNew.password),
     status: true
   })
 
-  await userNew.save()
-
-  return userNew
+  return await user.save()
 }
 
 exports.updateUser = async (userToUpdate, userWithNewData) => {
@@ -62,7 +39,7 @@ exports.updateUser = async (userToUpdate, userWithNewData) => {
   return await userToUpdate.update({
     username: userWithNewData.username,
     email: userWithNewData.email,
-    password: userWithNewData.password,
+    password: await passwordUtil.encrypt(userWithNewData.password),
     status: userWithNewData.status
   })
 }
