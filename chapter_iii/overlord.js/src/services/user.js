@@ -23,7 +23,7 @@ exports.getUser = async (userId) => {
  * Get user by username
  *
  * @async
- * @param {string} username - username
+ * @param {string} username - Username
  * @returns {User} user
 */
 exports.getUserByUsername = async (username) => {
