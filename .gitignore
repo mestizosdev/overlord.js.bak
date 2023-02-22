@@ -103,5 +103,7 @@ dist
 # TernJS port file
 .tern-port
 
+.DS_Store
+
 # Generate doc
 chapter_iii/overlord.js/doc/overlord.js/

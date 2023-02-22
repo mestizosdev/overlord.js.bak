@@ -6,11 +6,13 @@
     "excludePattern": "(node_modules|docs|seeders|migrations)"
   },
   "templates": {
-    "cleverLinks": false,
-    "monospaceLinks": false
+      "name": "Overlord.js",
+      "cleverLinks": false,
+      "monospaceLinks": false
   },
   "opts": {
     "recurse": "true",
+    "template": "node_modules/docdash",
     "destination": "./doc/overlord.js"
   }
 }
