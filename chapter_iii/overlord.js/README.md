@@ -15,5 +15,16 @@ pnpm add -D jsdoc-http-plugin
 ```
 touch jsdoc.json
 ```
+## Add theme
+```
+pnpm add -D docdash
+```
 ## Add jsdoc command to package.json
+```
+pnpm doc
+```
 ## Add standard command to package.json
+Only scan src folder
+```
+"standard": "standard src --fix"
+```

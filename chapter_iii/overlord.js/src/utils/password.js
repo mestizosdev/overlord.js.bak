@@ -7,7 +7,7 @@ const minCharacters = 10
 /**
  * Encrypt password
  * @async
- * @param {string} password 
+ * @param {string} password
  * @returns {string}
 */
 module.exports.encrypt = (password) => {

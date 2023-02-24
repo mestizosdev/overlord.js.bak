@@ -4,7 +4,7 @@ const passwordUtil = require('../utils/password')
 
 /**
  * @name Get user
- * @path {GET} /overlord/v1/user/:id 
+ * @path {GET} /overlord/v1/user/:id
 */
 exports.getUser = async (req, res) => {
   const user = await userService.getUser(req.params.id)
@@ -26,7 +26,7 @@ exports.getUser = async (req, res) => {
 
 /**
  * @name Create user
- * @path {POST} /overlord/v1/user 
+ * @path {POST} /overlord/v1/user
 */
 exports.createUser = async (req, res) => {
   console.log(req.body)
@@ -62,7 +62,7 @@ exports.createUser = async (req, res) => {
 
 /**
  * @name Update user
- * @path {PUT} /overlord/v1/user/:id 
+ * @path {PUT} /overlord/v1/user/:id
 */
 exports.updateUser = async (req, res) => {
   const user = await userService.getUser(req.params.id)
@@ -91,7 +91,7 @@ exports.updateUser = async (req, res) => {
 
 /**
  * @name Delete user
- * @path {DELETE} /overlord/v1/user/:id 
+ * @path {DELETE} /overlord/v1/user/:id
 */
 exports.deleteUser = async (req, res) => {
   const user = await userService.getUser(req.params.id)

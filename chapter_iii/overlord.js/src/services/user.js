@@ -75,7 +75,7 @@ exports.updateUser = async (userToUpdate, userWithNewData) => {
  * Delete user
  *
  * @async
- * @param {User} userToDelete - Current user to delete 
+ * @param {User} userToDelete - Current user to delete
 */
 exports.deleteUser = async (userToDelete) => {
   await userToDelete.destroy()

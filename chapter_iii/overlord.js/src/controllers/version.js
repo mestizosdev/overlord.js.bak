@@ -3,8 +3,8 @@ const versionService = require('../services/version')
 
 /**
  * Get name application, database version and node version
- * @name Get application version 
- * @path {GET} /overlord/v1/version 
+ * @name Get application version
+ * @path {GET} /overlord/v1/version
 */
 exports.getVersion = async (req, res) => {
   const version = await versionService.getVersion()

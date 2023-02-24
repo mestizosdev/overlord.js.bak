@@ -13,6 +13,7 @@
   "opts": {
     "recurse": "true",
     "template": "node_modules/docdash",
-    "destination": "./doc/overlord.js"
+    "destination": "./doc/overlord.js",
+    "readme": "./README.md"
   }
 }
