@@ -1,0 +1,33 @@
+{
+  "name": "overlord.js",
+  "version": "1.0.0",
+  "description": "Administrator for Users, modules and access",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon src/app.js",
+    "doc": "jsdoc -c jsdoc.json",
+    "standard": "standard src --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jorge Luis",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "generate-password": "^1.7.0",
+    "pg": "^8.9.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.28.0",
+    "swagger-autogen": "^2.23.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.2"
+  },
+  "devDependencies": {
+    "docdash": "^2.0.1",
+    "jsdoc": "^4.0.0",
+    "jsdoc-http-plugin": "^0.3.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.20"
+  }
+}
