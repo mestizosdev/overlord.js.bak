@@ -7,6 +7,8 @@ const versionService = require('../services/version')
  * @path {GET} /overlord/v1/version
 */
 exports.getVersion = async (req, res) => {
+  // #swagger.description = 'Get version of database and node.js'
+  // #swagger.tags = ['Version']
   const version = await versionService.getVersion()
 
   res.json({

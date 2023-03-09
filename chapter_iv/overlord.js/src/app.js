@@ -4,7 +4,7 @@ const morgan = require('morgan')
 const path = require('path')
 
 const routes = require('./routes')
-const { swaggerDocs: v1SwaggerDocs } = require('./routes/swagger')
+const { swaggerDocs } = require('./routes/swagger')
 
 dotenv.config({ path: path.join(__dirname, '/config/config.env') })
 
@@ -24,7 +24,7 @@ app.listen(PORT, () => {
   console.log(
     `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
   )
-  v1SwaggerDocs(app, PORT)
+  swaggerDocs(app, PORT)
 })
 
 module.exports = app

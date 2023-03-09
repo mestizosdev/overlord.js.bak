@@ -7,6 +7,7 @@ const passwordUtil = require('../utils/password')
  * @path {GET} /overlord/v1/user/:id
 */
 exports.getUser = async (req, res) => {
+  // #swagger.tags = ['User']
   const user = await userService.getUser(req.params.id)
 
   if (!user) {
@@ -29,6 +30,7 @@ exports.getUser = async (req, res) => {
  * @path {POST} /overlord/v1/user
 */
 exports.createUser = async (req, res) => {
+  // #swagger.tags = ['User']
   console.log(req.body)
   const { username, email, password } = req.body
 
@@ -65,6 +67,7 @@ exports.createUser = async (req, res) => {
  * @path {PUT} /overlord/v1/user/:id
 */
 exports.updateUser = async (req, res) => {
+  // #swagger.tags = ['User']
   const user = await userService.getUser(req.params.id)
 
   if (!user) {
@@ -94,6 +97,7 @@ exports.updateUser = async (req, res) => {
  * @path {DELETE} /overlord/v1/user/:id
 */
 exports.deleteUser = async (req, res) => {
+  // #swagger.tags = ['User']
   const user = await userService.getUser(req.params.id)
 
   if (!user) {
