@@ -1,6 +1,6 @@
 const swaggerJSDoc = require('swagger-jsdoc')
 const swaggerUI = require('swagger-ui-express')
-const swaggerAutogen = require('swagger-autogen')
+const swaggerDocument = require('../../swagger.json')
 
 const options ={
   definition: {
@@ -14,13 +14,11 @@ const options ={
 }
 
 const swaggerSpec = swaggerJSDoc(options)
-const outputFile = 'swagger-output.json';
 
-//swaggerAutogen(outputFile, options.apis, options)
 
 const swaggerDocs = (app, port) => {
-  app.use('/overlord/v1/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
-  app.get('swagger-output.json', (req, res) => {
+  app.use('/overlord/v1/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument, swaggerSpec))
+  app.get('/overlord/v1/docs.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json')
     res.send(swaggerSpec)
   })
