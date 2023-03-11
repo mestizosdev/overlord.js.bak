@@ -1,6 +1,7 @@
 /** @module controllers/user */
 const userService = require('../services/user')
 const passwordUtil = require('../utils/password')
+const { validationResult } = require('express-validator')
 
 /**
  * @name Get user
@@ -8,6 +9,15 @@ const passwordUtil = require('../utils/password')
 */
 exports.getUser = async (req, res) => {
   // #swagger.tags = ['User']
+  // Catch the validation result
+  const errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      message: errors
+    })
+  }
+
   const user = await userService.getUser(req.params.id)
 
   if (!user) {
@@ -68,6 +78,15 @@ exports.createUser = async (req, res) => {
 */
 exports.updateUser = async (req, res) => {
   // #swagger.tags = ['User']
+
+  const errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      message: errors
+    })
+  }
+
   const user = await userService.getUser(req.params.id)
 
   if (!user) {
