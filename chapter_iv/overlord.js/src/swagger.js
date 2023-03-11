@@ -1,7 +1,10 @@
 const swaggerAutogen = require('swagger-autogen')({ openapi: '3.0.0' })
 const dotenv = require('dotenv')
+const path = require('path')
 
-const PORT = process.env.PORT || 7000
+dotenv.config({ path: path.join(__dirname, '/config/config.env') })
+
+const PORT = process.env.PORT || 5000
 
 const doc = {
   info: {

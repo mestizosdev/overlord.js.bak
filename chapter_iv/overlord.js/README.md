@@ -12,6 +12,7 @@ This module performs the automatic construction of the Swagger documentation. Th
 pnpm add -D swagger-autogen
 ```
 ## Add swagger.js in src folder
+
 ## Add swagger.js in src/routes folder
 
 ## Add coments to swagger in controllers methods GET, POST, PUT and DELETE
