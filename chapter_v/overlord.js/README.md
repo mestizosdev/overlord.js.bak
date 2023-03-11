@@ -6,3 +6,7 @@ Add validation on rest api
 ```
 pnpm add express-validator
 ```
+
+## Add validation in files into routes folder
+
+## Add errorHandler middleware for catch JSON.parse error
