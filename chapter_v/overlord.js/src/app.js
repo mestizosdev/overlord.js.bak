@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json()) // body parser
 app.use(routes.version)
 app.use(routes.user)
-app.use(errorHandler) 
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000
 
