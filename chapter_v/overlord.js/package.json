@@ -20,7 +20,8 @@
     "generate-password": "^1.7.0",
     "pg": "^8.10.0",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.29.3"
+    "sequelize": "^6.29.3",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "docdash": "^2.0.1",
