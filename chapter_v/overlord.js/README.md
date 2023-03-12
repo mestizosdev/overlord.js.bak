@@ -18,3 +18,4 @@ pnpm add winston
 ```
 ### Add utils/logger.js
 ### Add logger in errorHandler
+### Add try catch in user services

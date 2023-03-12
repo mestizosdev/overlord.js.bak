@@ -68,6 +68,9 @@ exports.updateUser = async (userToUpdate, userWithNewData) => {
     email: userWithNewData.email,
     password: await passwordUtil.encrypt(userWithNewData.password),
     status: userWithNewData.status
+  }).catch((error) => {
+    console.log(error)
+    throw new Error(error)
   })
 }
 
