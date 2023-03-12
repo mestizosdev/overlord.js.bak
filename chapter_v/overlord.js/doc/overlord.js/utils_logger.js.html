@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>utils/password.js - Documentation</title>
+    <title>utils/logger.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,7 +35,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">utils/password.js</h1>
+    <h1 class="page-title">utils/logger.js</h1>
     
 
     
@@ -45,41 +45,23 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module utils/password */
-const bcrypt = require('bcrypt')
-const generator = require('generate-password')
-
-const minCharacters = 10
+            <pre class="prettyprint source linenums"><code>/** @module utils/logger */
+const { createLogger, format, transports } = require('winston')
 
 /**
- * Encrypt password
- * @async
- * @param {string} password
- * @returns {string}
+ * Create logger instance with the custom configuration
 */
-module.exports.encrypt = (password) => {
-  const salt = bcrypt.genSaltSync(minCharacters)
-  const encryptedPassword = bcrypt.hash(password, salt)
-
-  return encryptedPassword
-}
-
-/**
- * Generate password
- *
- * @returns {string}
-*/
-module.exports.generate = () => {
-  const password = generator.generate({
-    length: minCharacters,
-    numbers: true,
-    uppercase: true,
-    lowercase: true,
-    symbols: true
-  })
-
-  return password
-}
+module.exports = createLogger({
+  transports:
+    new transports.File({
+      filename: 'logs/server.log',
+      format: format.combine(
+        format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        format.align(),
+        format.printf(info => `${info.level}: ${[info.timestamp]}: ${info.message}`)
+      )
+    })
+})
 </code></pre>
         </article>
     </section>

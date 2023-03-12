@@ -1,4 +1,4 @@
-/** @module util/password */
+/** @module utils/password */
 const bcrypt = require('bcrypt')
 const generator = require('generate-password')
 

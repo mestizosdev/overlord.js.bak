@@ -1,8 +1,8 @@
+/** @module utils/logger */
 const { createLogger, format, transports } = require('winston')
 
 /**
- * Create logger instance with the custom configuration 
- *
+ * Create logger instance with the custom configuration
 */
 module.exports = createLogger({
   transports:

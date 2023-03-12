@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>utils/password.js - Documentation</title>
+    <title>middleware/error.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,7 +35,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">utils/password.js</h1>
+    <h1 class="page-title">middleware/error.js</h1>
     
 
     
@@ -45,41 +45,26 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module utils/password */
-const bcrypt = require('bcrypt')
-const generator = require('generate-password')
-
-const minCharacters = 10
+            <pre class="prettyprint source linenums"><code>/** @module middleware/error */
+const logger = require('../utils/logger')
 
 /**
- * Encrypt password
- * @async
- * @param {string} password
- * @returns {string}
-*/
-module.exports.encrypt = (password) => {
-  const salt = bcrypt.genSaltSync(minCharacters)
-  const encryptedPassword = bcrypt.hash(password, salt)
-
-  return encryptedPassword
-}
-
-/**
- * Generate password
+ * Handle errors, for example: not valid json body
  *
- * @returns {string}
+ * @name Error
+ * @path {GET} 
+ * @response {Object} metadata: JSON with error message 
 */
-module.exports.generate = () => {
-  const password = generator.generate({
-    length: minCharacters,
-    numbers: true,
-    uppercase: true,
-    lowercase: true,
-    symbols: true
-  })
+const errorHandler = (error, req, res, next) => {
+  console.log(`${req.method} ${req.url} ${error.message}`)
+  logger.error(`${req.method} ${req.url} ${error.message}`)
 
-  return password
+  res.status(404).json({
+    message: error.message
+  })
 }
+
+module.exports = errorHandler
 </code></pre>
         </article>
     </section>
