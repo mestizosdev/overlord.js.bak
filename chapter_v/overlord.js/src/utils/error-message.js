@@ -1,6 +1,7 @@
 module.exports.errorMessage = (error) => {
   console.log('Error Message')
   console.log(typeof error)
+  console.log(error.middlewareError)
 
   if (typeof error === 'string') {
     const errors = [{
@@ -54,6 +55,25 @@ module.exports.errorMessage = (error) => {
         return element
       })
 
+      return { errors }
+    } else if (typeof error.middlewareError === 'object') {
+      const errors = []
+      const element = {}
+
+      if (error.message) {
+        element.message = error.message
+      }
+      
+      element.location = ''
+      
+      if (error.middlewareError.type) {
+        element.param = error.middlewareError.type
+      }
+      if (error.middlewareError.body) {
+        element.value = error.middlewareError.body
+      }
+
+      errors.push(element)
       return { errors }
     }
   }

@@ -1,5 +1,6 @@
 /** @module middleware/error */
 const logger = require('../utils/logger')
+const { errorMessage } = require('../utils/error-message')
 
 /**
  * Handle errors, for example: not valid json body
@@ -12,7 +13,14 @@ const errorHandler = (error, req, res, next) => {
   console.log('Error Handler')
   const e = { ...error }
   if (Object.keys(e).length !== 0) {
-    console.log(Object.keys(e).length)
+    console.log('Error', e)
+    const middleware = {
+      middlewareError: e,
+      message: error.message
+    }
+    return res.status(404).json(
+      errorMessage(middleware)
+    )
   }
 
   console.log(`${req.method} ${req.url} ${error.message}`)
