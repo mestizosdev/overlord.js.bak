@@ -1,8 +1,9 @@
 /** @module controllers/user */
-const userService = require('../services/user')
-const passwordUtil = require('../utils/password')
 const { validationResult } = require('express-validator')
 
+const userService = require('../services/user')
+const passwordUtil = require('../utils/password')
+const { errorMessage } = require('../utils/error-message')
 /**
  * @name Get user
  * @path {GET} /overlord/v1/user/:id
@@ -78,23 +79,23 @@ exports.createUser = async (req, res) => {
  * @name Update user
  * @path {PUT} /overlord/v1/user/:id
 */
-exports.updateUser = async (req, res, next) => {
+exports.updateUser = async (req, res) => {
   // #swagger.tags = ['User']
   try {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
-      return res.status(422).json({
-        message: errors
-      })
+      return res.status(422).json(
+        errorMessage(errors)
+      )
     }
 
     const user = await userService.getUser(req.params.id)
 
     if (!user) {
-      return res.status(404).json({
-        message: 'User don\'t exist'
-      })
+      return res.status(404).json(
+        errorMessage('User don\'t exist')
+      )
     }
 
     const { username, email, password, status } = req.body
@@ -112,8 +113,9 @@ exports.updateUser = async (req, res, next) => {
       status: userUpdated.status
     })
   } catch (error) {
-    console.log(error)
-    next(error)
+    return res.status(404).json(
+      errorMessage(error)
+    )
   }
 }
 

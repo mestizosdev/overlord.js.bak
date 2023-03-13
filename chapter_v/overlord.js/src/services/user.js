@@ -1,6 +1,8 @@
 /** @module services/user */
+const { ValidationError } = require('sequelize')
 const db = require('../models')
 const passwordUtil = require('../utils/password')
+const ErrorDatabase = require('../utils/error-database')
 
 /**
  * Get user
@@ -69,8 +71,15 @@ exports.updateUser = async (userToUpdate, userWithNewData) => {
     password: await passwordUtil.encrypt(userWithNewData.password),
     status: userWithNewData.status
   }).catch((error) => {
-    console.log(error)
-    throw new Error(error)
+    if (error instanceof ValidationError) {
+      console.log(error.errors)
+      throw new ErrorDatabase(
+        'Database error in updateUser method',
+        error.errors
+      )
+    } else {
+      throw new Error(error)
+    }
   })
 }
 

@@ -9,6 +9,12 @@ const logger = require('../utils/logger')
  * @response {Object} metadata: JSON with error message
 */
 const errorHandler = (error, req, res, next) => {
+  console.log('Error Handler')
+  const e = { ...error }
+  if (Object.keys(e).length !== 0) {
+    console.log(Object.keys(e).length)
+  }
+
   console.log(`${req.method} ${req.url} ${error.message}`)
   logger.error(`${req.method} ${req.url} ${error.message}`)
 
