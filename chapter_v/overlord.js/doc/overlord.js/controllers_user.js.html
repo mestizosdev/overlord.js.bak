@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module-models_user-User.html">User</a><ul class='methods'><li data-type='method'><a href="module-models_user-User.html#.associate">associate</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-controllers_user.html">controllers/user</a></li><li><a href="module-controllers_version.html">controllers/version</a></li><li><a href="module-middleware_error.html">middleware/error</a></li><li><a href="module-models_user.html">models/user</a></li><li><a href="module-services_user.html">services/user</a><ul class='methods'><li data-type='method'><a href="module-services_user.html#.createUser">createUser</a></li><li data-type='method'><a href="module-services_user.html#.deleteUser">deleteUser</a></li><li data-type='method'><a href="module-services_user.html#.getUser">getUser</a></li><li data-type='method'><a href="module-services_user.html#.getUserByUsername">getUserByUsername</a></li><li data-type='method'><a href="module-services_user.html#.updateUser">updateUser</a></li></ul></li><li><a href="module-services_version.html">services/version</a><ul class='methods'><li data-type='method'><a href="module-services_version.html#.getVersion">getVersion</a></li></ul></li><li><a href="module-utils_logger.html">utils/logger</a></li><li><a href="module-utils_password.html">utils/password</a><ul class='methods'><li data-type='method'><a href="module-utils_password.html#.encrypt">encrypt</a></li><li data-type='method'><a href="module-utils_password.html#.generate">generate</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module-models_user-User.html">User</a><ul class='methods'><li data-type='method'><a href="module-models_user-User.html#.associate">associate</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-controllers_user.html">controllers/user</a></li><li><a href="module-controllers_version.html">controllers/version</a></li><li><a href="module-middleware_error.html">middleware/error</a></li><li><a href="module-models_user.html">models/user</a></li><li><a href="module-services_user.html">services/user</a><ul class='methods'><li data-type='method'><a href="module-services_user.html#.createUser">createUser</a></li><li data-type='method'><a href="module-services_user.html#.deleteUser">deleteUser</a></li><li data-type='method'><a href="module-services_user.html#.getUser">getUser</a></li><li data-type='method'><a href="module-services_user.html#.getUserByUsername">getUserByUsername</a></li><li data-type='method'><a href="module-services_user.html#.updateUser">updateUser</a></li></ul></li><li><a href="module-services_version.html">services/version</a><ul class='methods'><li data-type='method'><a href="module-services_version.html#.getVersion">getVersion</a></li></ul></li><li><a href="module-util_error-message.html">util/error-message</a><ul class='methods'><li data-type='method'><a href="module-util_error-message.html#.errorMessage">errorMessage</a></li></ul></li><li><a href="module-utils_logger.html">utils/logger</a></li><li><a href="module-utils_password.html">utils/password</a><ul class='methods'><li data-type='method'><a href="module-utils_password.html#.encrypt">encrypt</a></li><li data-type='method'><a href="module-utils_password.html#.generate">generate</a></li></ul></li></ul>
     
 </nav>
 
@@ -46,10 +46,11 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/** @module controllers/user */
-const userService = require('../services/user')
-const passwordUtil = require('../utils/password')
 const { validationResult } = require('express-validator')
 
+const userService = require('../services/user')
+const passwordUtil = require('../utils/password')
+const { errorMessage } = require('../utils/error-message')
 /**
  * @name Get user
  * @path {GET} /overlord/v1/user/:id
@@ -73,7 +74,7 @@ exports.getUser = async (req, res) => {
     })
   }
 
-  return res.status(200).json({
+  res.status(200).json({
     id: user.id,
     username: user.username,
     email: user.email,
@@ -108,9 +109,11 @@ exports.createUser = async (req, res) => {
 
   console.log(`passwordToSave: ${passwordToSave}`)
 
-  const user = await userService.createUser({ username, email, password: passwordToSave })
+  const user = await userService.createUser(
+    { username, email, password: passwordToSave }
+  )
 
-  return res.status(200).json({
+  res.status(200).json({
     id: user.id,
     username: user.username,
     email: user.email,
@@ -125,37 +128,42 @@ exports.createUser = async (req, res) => {
 */
 exports.updateUser = async (req, res) => {
   // #swagger.tags = ['User']
+  try {
+    const errors = validationResult(req)
 
-  const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(422).json(
+        errorMessage(errors, req)
+      )
+    }
 
-  if (!errors.isEmpty()) {
-    return res.status(422).json({
-      message: errors
+    const user = await userService.getUser(req.params.id)
+
+    if (!user) {
+      return res.status(404).json(
+        errorMessage('User don\'t exist', req)
+      )
+    }
+
+    const { username, email, password, status } = req.body
+
+    const userUpdated = await userService.updateUser(
+      user,
+      { username, email, password, status }
+    )
+
+    res.status(200).json({
+      id: userUpdated.id,
+      username: userUpdated.username,
+      email: userUpdated.email,
+      createdAt: userUpdated.createdAt,
+      status: userUpdated.status
     })
+  } catch (error) {
+    return res.status(404).json(
+      errorMessage(error, req)
+    )
   }
-
-  const user = await userService.getUser(req.params.id)
-
-  if (!user) {
-    return res.status(404).json({
-      message: 'User don\'t exist'
-    })
-  }
-
-  const { username, email, password, status } = req.body
-
-  const userUpdated = await userService.updateUser(
-    user,
-    { username, email, password, status }
-  )
-
-  return res.status(200).json({
-    id: userUpdated.id,
-    username: userUpdated.username,
-    email: userUpdated.email,
-    createdAt: userUpdated.createdAt,
-    status: userUpdated.status
-  })
 }
 
 /**
@@ -193,7 +201,7 @@ exports.deleteUser = async (req, res) => {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Sun Mar 12 2023 12:12:15 GMT-0500 (Ecuador Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 13 2023 11:39:35 GMT-0500 (Ecuador Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

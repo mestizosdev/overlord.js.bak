@@ -1,5 +1,4 @@
 /** @module middleware/error */
-const logger = require('../utils/logger')
 const { errorMessage } = require('../utils/error-message')
 
 /**
@@ -19,16 +18,13 @@ const errorHandler = (error, req, res, next) => {
       message: error.message
     }
     return res.status(404).json(
-      errorMessage(middleware)
+      errorMessage(middleware, req)
     )
   }
 
-  console.log(`${req.method} ${req.url} ${error.message}`)
-  logger.error(`${req.method} ${req.url} ${error.message}`)
-
-  res.status(404).json({
-    message: error.message
-  })
+  res.status(404).json(
+    errorMessage(String(error.message), req)
+  )
 }
 
 module.exports = errorHandler

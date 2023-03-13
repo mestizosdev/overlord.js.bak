@@ -1,7 +1,16 @@
-module.exports.errorMessage = (error) => {
-  console.log('Error Message')
-  console.log(typeof error)
-  console.log(error.middlewareError)
+/** @module util/error-message */
+const logger = require('./logger')
+
+/**
+ * Get error
+ *
+ * @async
+ * @param {object|string} error - Error from throw or custom error
+ * @param {request} req - http request
+ * @returns {Error} error
+*/
+module.exports.errorMessage = (error, req = null) => {
+  console.log(error)
 
   if (typeof error === 'string') {
     const errors = [{
@@ -10,6 +19,9 @@ module.exports.errorMessage = (error) => {
       param: '',
       value: ''
     }]
+
+    console.log(`${req.method} ${req.url} ${error}`)
+    logger.error(`${req.method} ${req.url} ${error}`)
 
     return { errors }
   } else if (typeof error === 'object') {
@@ -30,6 +42,13 @@ module.exports.errorMessage = (error) => {
         if (result.value) {
           element.value = result.value
         }
+
+        console.log(`${req.method} ${req.url} ${element.message}`)
+        logger.error(`${req.method} ${req.url}. 
+          Message: ${element.message}, 
+          location: ${element.location}, 
+          param: ${element.param}, 
+          value: ${element.value}`)
 
         return element
       })
@@ -52,6 +71,13 @@ module.exports.errorMessage = (error) => {
           element.value = result.value
         }
 
+        console.log(`${req.method} ${req.url} ${element.message}`)
+        logger.error(`${req.method} ${req.url}. 
+          Message: ${element.message}, 
+          location: ${element.location}, 
+          param: ${element.param}, 
+          value: ${element.value}`)
+
         return element
       })
 
@@ -63,9 +89,9 @@ module.exports.errorMessage = (error) => {
       if (error.message) {
         element.message = error.message
       }
-      
+
       element.location = ''
-      
+
       if (error.middlewareError.type) {
         element.param = error.middlewareError.type
       }
@@ -74,9 +100,20 @@ module.exports.errorMessage = (error) => {
       }
 
       errors.push(element)
+
+      console.log(`${req.method} ${req.url} ${element.message}`)
+      logger.error(`${req.method} ${req.url}. 
+        Message: ${element.message}, 
+        location: ${element.location}, 
+        param: ${element.param}, 
+        value: ${element.value}`)
+
       return { errors }
     }
   }
+
+  console.log(`${req.method} ${req.url} ${error.message}`)
+  logger.error(`${req.method} ${req.url} ${error.message}`)
 
   return error
 }

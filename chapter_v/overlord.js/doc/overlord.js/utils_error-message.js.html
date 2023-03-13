@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>middleware/error.js - Documentation</title>
+    <title>utils/error-message.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,7 +35,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">middleware/error.js</h1>
+    <h1 class="page-title">utils/error-message.js</h1>
     
 
     
@@ -45,36 +45,113 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module middleware/error */
-const { errorMessage } = require('../utils/error-message')
+            <pre class="prettyprint source linenums"><code>/** @module util/error-message */
+const logger = require('./logger')
 
 /**
- * Handle errors, for example: not valid json body
+ * Get error
  *
- * @name Error
- * @path {GET}
- * @response {Object} metadata: JSON with error message
+ * @async
+ * @param {object|string} error - Error from throw or custom error
+ * @param {request} req - http request
+ * @returns {Error} error
 */
-const errorHandler = (error, req, res, next) => {
-  console.log('Error Handler')
-  const e = { ...error }
-  if (Object.keys(e).length !== 0) {
-    console.log('Error', e)
-    const middleware = {
-      middlewareError: e,
-      message: error.message
+module.exports.errorMessage = (error, req = null) => {
+  console.log(error)
+
+  if (typeof error === 'string') {
+    const errors = [{
+      location: '',
+      message: error,
+      param: '',
+      value: ''
+    }]
+
+    console.log(`${req.method} ${req.url} ${error}`)
+    logger.error(`${req.method} ${req.url} ${error}`)
+
+    return { errors }
+  } else if (typeof error === 'object') {
+    // for validationResult object
+    if (typeof error.errors === 'object') {
+      const errors = error.errors.map(result => {
+        const element = {}
+
+        if (result.msg) {
+          element.message = result.msg
+        }
+        if (result.location) {
+          element.location = result.location
+        }
+        if (result.param) {
+          element.param = result.param
+        }
+        if (result.value) {
+          element.value = result.value
+        }
+
+        console.log(`${req.method} ${req.url} ${element.message}`)
+        logger.error(`${req.method} ${req.url} ${element.message} ${element.location} ${element.param} ${element.value}`)
+
+        return element
+      })
+
+      return { errors }
+    } else if (typeof error.errorDatabase === 'object') {
+      const errors = error.errorDatabase.map(result => {
+        const element = {}
+
+        if (result.message) {
+          element.message = result.message
+        }
+        if (result.path) {
+          element.location = result.path
+        }
+        if (result.type) {
+          element.param = result.type
+        }
+        if (result.value) {
+          element.value = result.value
+        }
+
+        console.log(`${req.method} ${req.url} ${element.message}`)
+        logger.error(`${req.method} ${req.url} ${element.message} ${element.location} ${element.param} ${element.value}`)
+
+        return element
+      })
+
+      return { errors }
+    } else if (typeof error.middlewareError === 'object') {
+      const errors = []
+      const element = {}
+
+      if (error.message) {
+        element.message = error.message
+      }
+
+      element.location = ''
+
+      if (error.middlewareError.type) {
+        element.param = error.middlewareError.type
+      }
+      if (error.middlewareError.body) {
+        element.value = error.middlewareError.body
+      }
+
+      errors.push(element)
+
+      console.log(`${req.method} ${req.url} ${element.message}`)
+      logger.error(`${req.method} ${req.url} ${element.message} ${element.location} ${element.param} ${element.value}`)
+
+      return { errors }
     }
-    return res.status(404).json(
-      errorMessage(middleware, req)
-    )
   }
 
-  res.status(404).json(
-    errorMessage(String(error.message), req)
-  )
-}
+  console.log(`${req.method} ${req.url} ${error.message}`)
+  logger.error(`${req.method} ${req.url} ${error.message}`)
 
-module.exports = errorHandler
+  return error
+}
 </code></pre>
         </article>
     </section>

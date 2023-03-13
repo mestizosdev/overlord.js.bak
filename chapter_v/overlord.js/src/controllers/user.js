@@ -86,7 +86,7 @@ exports.updateUser = async (req, res) => {
 
     if (!errors.isEmpty()) {
       return res.status(422).json(
-        errorMessage(errors)
+        errorMessage(errors, req)
       )
     }
 
@@ -94,7 +94,7 @@ exports.updateUser = async (req, res) => {
 
     if (!user) {
       return res.status(404).json(
-        errorMessage('User don\'t exist')
+        errorMessage('User don\'t exist', req)
       )
     }
 
@@ -114,7 +114,7 @@ exports.updateUser = async (req, res) => {
     })
   } catch (error) {
     return res.status(404).json(
-      errorMessage(error)
+      errorMessage(error, req)
     )
   }
 }
