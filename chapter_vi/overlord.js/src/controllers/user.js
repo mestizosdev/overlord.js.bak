@@ -73,7 +73,11 @@ exports.createUser = async (req, res) => {
 
   const user = await userService.createUser(
     { username, email, password: passwordToSave }
-  )
+  ).catch((error) => {
+    return res.status(503).json(
+      errorMessage(error, req)
+    )
+  })
 
   res.status(200).json({
     id: user.id,

@@ -32,6 +32,7 @@ Add files and code for test
 ```
 "test": "mocha --exit"
 ```
+## Write your custom tests
 
 ## Stop the server if it is running
 

@@ -60,6 +60,21 @@ describe('User'.bgBlue, () => {
         })
     })
   })
+
+  describe('POST duplicate email user'.cyan, () => {
+    it('It should reject POST user because email is duplicate', (done) => {
+      const user = { username: 'other_extra_user', email }
+
+      chai.request(app)
+        .post(`${urlBase}user`)
+        .send(user)
+        .end((err, res) => {
+          res.should.have.status(503)
+          console.log('Reject user:'.blue.bold, res.body)
+          done()
+        })
+    })
+  })
   
   describe('PUT user'.cyan, () => {
     it('it should reject PUT a user when other user exist for example (system)', (done) => {
