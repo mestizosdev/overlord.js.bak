@@ -13,7 +13,7 @@ const urlBase = '/overlord/v1/'
 
 describe('User'.bgBlue, () => {
   describe('POST user'.cyan, () => {
-    it('It should rejedt a user, because bad user and bad email', (done) => {
+    it('It should rejedt POST user, because bad user and bad email', (done) => {
       const user = {
         username: 'a',
         email: 'a.com'
@@ -45,9 +45,9 @@ describe('User'.bgBlue, () => {
         })
     })
   })
-  
+
   describe('POST duplicate user'.cyan, () => {
-    it('It should reject a user', (done) => {
+    it('It should reject POST user', (done) => {
       const user = { username, email }
 
       chai.request(app)
@@ -60,7 +60,47 @@ describe('User'.bgBlue, () => {
         })
     })
   })
+  
+  describe('PUT user'.cyan, () => {
+    it('it should reject PUT a user when other user exist for example (system)', (done) => {
+      const user = {
+        username: 'system',
+        email,
+        password: '1234567890',
+        status: false
+      }
 
+      chai.request(app)
+        .put(`${urlBase}user/` + userId)
+        .send(user)
+        .end((err, res) => {
+          res.should.have.status(503)
+          console.log('Reject user:'.blue.bold, res.body)
+          done()
+        })
+    })
+  })
+  
+  describe('PUT user'.cyan, () => {
+    it('it should PUT a user', (done) => {
+      const user = {
+        username: 'other_user_test',
+        email: 'other_user_test@mestizos.dev',
+        password: '1234567890',
+        status: false
+      }
+
+      chai.request(app)
+        .put(`${urlBase}user/` + userId)
+        .send(user)
+        .end((err, res) => {
+          res.should.have.status(200)
+          console.log('Update user:'.blue.bold, res.body)
+          done()
+        })
+    })
+  })
+  
   describe('GET user'.cyan, () => {
     it('it should GET a user', (done) => {
       chai.request(app)
