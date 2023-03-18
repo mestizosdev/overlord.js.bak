@@ -37,6 +37,9 @@ router.put('/overlord/v1/user/:id',
     .withMessage('Should have a valid email'),
   updateUser)
 
-router.delete('/overlord/v1/user/:id', deleteUser)
+router.delete('/overlord/v1/user/:id',
+  param('id').toInt().notEmpty()
+    .withMessage('Should have a numeric identifier'),
+  deleteUser)
 
 module.exports = router

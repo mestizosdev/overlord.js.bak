@@ -134,6 +134,14 @@ exports.updateUser = async (req, res) => {
 */
 exports.deleteUser = async (req, res) => {
   // #swagger.tags = ['User']
+  const errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json(
+      errorMessage(errors, req)
+    )
+  }
+
   const user = await userService.getUser(req.params.id)
 
   if (!user) {
