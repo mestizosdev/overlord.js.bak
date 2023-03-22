@@ -16,7 +16,7 @@ module.exports = {
     }], { returning: true })
 
     await queryInterface.bulkInsert('adm_roles', [{
-      role_name: superRole,
+      role: superRole,
       observation: 'Access without restriction for all the modules',
       status: true
     }], {})
@@ -25,7 +25,7 @@ module.exports = {
       if (value.username === 'system') {
         queryInterface.bulkInsert('adm_user_roles', [{
           user_id: value.id,
-          role_name: superRole
+          role: superRole
         }], {})
       }
     })

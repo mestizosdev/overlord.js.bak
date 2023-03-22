@@ -9,18 +9,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      role_name: {
+      role: {
         allowNull: false,
         type: Sequelize.STRING,
         references: {
           model: 'adm_roles',
-          key: 'role_name',
-          as: 'role_name'
+          key: 'role',
+          as: 'role'
         }
       },
-      user_id: {
+      userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        field: 'user_id',
         onDelete: 'CASCADE',
         references: {
           model: 'adm_users',
@@ -31,7 +32,7 @@ module.exports = {
     })
 
     await queryInterface.addConstraint('adm_user_roles', {
-      fields: ['role_name', 'user_id'],
+      fields: ['role', 'user_id'],
       type: 'unique',
       name: 'user_roles_uk'
     })

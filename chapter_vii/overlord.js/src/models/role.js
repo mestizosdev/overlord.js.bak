@@ -6,14 +6,19 @@ module.exports = (sequelize, DataTypes) => {
   class Role extends Model {
     static associate (models) {
       Role.hasMany(models.UserRole, {
-        sourceKey: 'roleName',
-        foreignKey: 'roleName',
-        as: 'roleusers'
+        sourceKey: 'role',
+        foreignKey: 'role',
+        as: 'userrole'
+      })
+      Role.hasMany(models.Module, {
+        sourceKey: 'role',
+        foreignKey: 'role',
+        as: 'module'
       })
     }
   }
   Role.init({
-    roleName: DataTypes.STRING,
+    role: DataTypes.STRING,
     observation: DataTypes.STRING,
     status: DataTypes.BOOLEAN
   }, {

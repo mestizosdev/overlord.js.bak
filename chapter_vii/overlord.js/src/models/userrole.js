@@ -11,15 +11,15 @@ module.exports = (sequelize, DataTypes) => {
         as: 'user'
       })
       UserRole.belongsTo(models.Role, {
-        targetKey: 'roleName',
-        foreignKey: 'roleName',
+        targetKey: 'role',
+        foreignKey: 'role',
         as: 'role'
       })
     }
   }
 
   UserRole.init({
-    roleName: DataTypes.STRING,
+    role: DataTypes.STRING,
     userId: DataTypes.INTEGER
   }, {
     sequelize,
