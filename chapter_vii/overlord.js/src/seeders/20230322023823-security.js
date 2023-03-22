@@ -36,8 +36,20 @@ module.exports = {
         console.log('Manage', value[0])
 
         await queryInterface.bulkInsert('adm_modules', [
-          { name: 'Users', icon: 'pi pi-fw pi-users', link: '/security/administer/user', role: 'usuario', module_id: value[0].id },
-          { name: 'Modules', icon: 'pi pi-fw pi-box', link: '/security/administer/module', role: 'modulo', module_id: value[0].id }
+          {
+            name: 'Users',
+            icon: 'pi pi-fw pi-users',
+            link: '/security/administer/user',
+            role: 'user',
+            module_id: value[0].id
+          },
+          {
+            name: 'Modules',
+            icon: 'pi pi-fw pi-box',
+            link: '/security/administer/module',
+            role: 'module',
+            module_id: value[0].id
+          }
         ], { })
       })
 
