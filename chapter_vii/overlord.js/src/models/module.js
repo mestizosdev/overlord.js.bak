@@ -8,12 +8,12 @@ module.exports = (sequelize, DataTypes) => {
       Module.belongsTo(models.Role, {
         targetKey: 'role',
         foreignKey: 'role',
-        as: 'role'
+        as: 'module_role'
       })
       Module.hasMany(models.Module, {
         sourceKey: 'id',
         foreignKey: 'module_id',
-        as: 'module'
+        as: 'module_module'
       })
     }
   }

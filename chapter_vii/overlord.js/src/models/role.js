@@ -8,12 +8,12 @@ module.exports = (sequelize, DataTypes) => {
       Role.hasMany(models.UserRole, {
         sourceKey: 'role',
         foreignKey: 'role',
-        as: 'userrole'
+        as: 'role_userrole'
       })
       Role.hasMany(models.Module, {
         sourceKey: 'role',
         foreignKey: 'role',
-        as: 'module'
+        as: 'role_module'
       })
     }
   }

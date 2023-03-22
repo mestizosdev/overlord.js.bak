@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.UserRole, {
         sourceKey: 'id',
         foreignKey: 'userId',
-        as: 'userroles'
+        as: 'user_userrole'
       })
     }
   }
