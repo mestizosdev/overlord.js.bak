@@ -1,7 +1,3 @@
--- View: v_adm_modules
-
-CREATE OR REPLACE VIEW v_adm_modules
- AS
 WITH RECURSIVE subordinates AS (
 	SELECT
 		id,
